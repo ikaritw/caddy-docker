@@ -1,13 +1,13 @@
 # caddy
 
-A [Docker](http://docker.com) image for [Caddy](http://caddyserver.com). This image includes the [git](http://caddyserver.com/docs/git) plugin.  Plugins can be configured via the `plugins` build arg.
+A [Docker](http://docker.com) image for [Caddy](http://caddyserver.com). This image includes the [git](http://caddyserver.com/docs/git) and [expires](http://caddyserver.com/docs/expires) plugin.
 
-[![](https://images.microbadger.com/badges/image/abiosoft/caddy.svg)](https://microbadger.com/images/abiosoft/caddy "Get your own image badge on microbadger.com")
+Fork from [abiosoft/caddy-docker](https://github.com/abiosoft/caddy-docker). Thanks for the great work :)
 
 ## Getting Started
 
 ```sh
-$ docker run -d -p 2015:2015 abiosoft/caddy
+$ docker run -d -p 2015:2015 factai/caddy
 ```
 
 Point your browser to `http://127.0.0.1:2015`.
@@ -23,7 +23,7 @@ $ docker run -d \
     -v $(pwd)/Caddyfile:/etc/Caddyfile \
     -v $HOME/.caddy:/root/.caddy \
     -p 80:80 -p 443:443 \
-    abiosoft/caddy
+    factai/caddy
 ```
 
 
@@ -36,30 +36,12 @@ $ docker run -d \
     -e "CADDYPATH=/etc/caddycerts" \
     -v $HOME/.caddy:/etc/caddycerts \
     -p 80:80 -p 443:443 \
-    abiosoft/caddy
+    factai/caddy
 ```
 
 Above, we utilize the `CADDYPATH` environment variable to define a different location inside the container for
 certificates to be stored. This is probably the safest option as it ensures any future docker image changes don't
 interfere with your ability to save certificates!
-
-### PHP
-`:[<version>-]php` variant of this image bundles PHP-FPM alongside essential php extensions and [composer](https://getcomposer.org). e.g. `:php`, `:0.8.0-php`
-```sh
-$ docker run -d -p 2015:2015 abiosoft/caddy:php
-```
-Point your browser to `http://127.0.0.1:2015` and you will see a php info page.
-
-##### Local php source
-
-Replace `/path/to/php/src` with your php sources directory.
-```sh
-$ docker run -d -v /path/to/php/src:/srv -p 2015:2015 abiosoft/caddy:php
-```
-Point your browser to `http://127.0.0.1:2015`.
-
-##### Note
-Your `Caddyfile` must include the line `startup php-fpm`. For Caddy to be PID 1 in the container, php-fpm could not be started.
 
 ### Using git sources
 
@@ -67,16 +49,16 @@ Caddy can serve sites from git repository using [git](https://caddyserver.com/do
 
 ##### Create Caddyfile
 
-Replace `github.com/abiosoft/webtest` with your repository.
+Replace `github.com/factai/webtest` with your repository.
 
 ```sh
-$ printf "0.0.0.0\nroot src\ngit github.com/abiosoft/webtest" > Caddyfile
+$ printf "0.0.0.0\nroot src\ngit github.com/factai/webtest" > Caddyfile
 ```
 
 ##### Run the image
 
 ```sh
-$ docker run -d -v $(pwd)/Caddyfile:/etc/Caddyfile -p 2015:2015 abiosoft/caddy
+$ docker run -d -v $(pwd)/Caddyfile:/etc/Caddyfile -p 2015:2015 factai/caddy
 ```
 Point your browser to `http://127.0.0.1:2015`.
 
@@ -89,10 +71,7 @@ The image contains a default Caddyfile.
 ```
 0.0.0.0
 browse
-fastcgi / 127.0.0.1:9000 php # php variant only
-startup php-fpm # php variant only
 ```
-The last 2 lines are only present in the php variant.
 
 #### Paths in container
 
@@ -109,7 +88,7 @@ $ docker run -d \
     -v /path/to/sites/root:/srv \
     -v path/to/Caddyfile:/etc/Caddyfile \
     -p 2015:2015 \
-    abiosoft/caddy
+    factai/caddy
 ```
 
 ### Let's Encrypt Auto SSL
@@ -130,5 +109,5 @@ You can change the the ports if ports 80 and 443 are not available on host. e.g.
 $ docker run -d \
     -v $(pwd)/Caddyfile:/etc/Caddyfile \
     -p 80:80 -p 443:443 \
-    abiosoft/caddy
+    factai/caddy
 ```
