@@ -1,7 +1,7 @@
-FROM alpine:3.4
+FROM alpine:3.5
 MAINTAINER FactAi <github@fact.ai>
 
-LABEL caddy_version="0.9.4" architecture="amd64"
+LABEL caddy_version="0.9.5" architecture="amd64"
 
 ARG plugins=git,expires
 
