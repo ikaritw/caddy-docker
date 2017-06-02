@@ -1,9 +1,9 @@
 FROM alpine:3.5
 MAINTAINER FactAi <github@fact.ai>
 
-LABEL caddy_version="0.10.2" architecture="amd64"
+LABEL caddy_version="0.10.3" architecture="amd64"
 
-ARG plugins=http.expires,http.git
+ARG plugins=http.expires,http.git,http.cors
 
 RUN apk add --no-cache openssh-client git tar curl
 
