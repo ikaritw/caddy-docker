@@ -1,6 +1,6 @@
 # caddy
 
-A [Docker](http://docker.com) image for [Caddy](http://caddyserver.com). This image includes the [git](http://caddyserver.com/docs/git) and [expires](http://caddyserver.com/docs/expires) plugin.
+A [Docker](http://docker.com) image for [Caddy](http://caddyserver.com). This image includes the [git](http://caddyserver.com/docs/http.git), [cors](http://caddyserver.com/docs/http.cors) and [expires](http://caddyserver.com/docs/http.expires) plugin.
 
 Fork from [abiosoft/caddy-docker](https://github.com/abiosoft/caddy-docker). Thanks for the great work :)
 
