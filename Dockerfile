@@ -1,7 +1,6 @@
-FROM alpine:3.6
-MAINTAINER FactAi <github@fact.ai>
+FROM arm32v6/alpine
 
-LABEL caddy_version="0.10.9" architecture="amd64"
+LABEL caddy_version="0.10.10" architecture="arm6"
 
 ARG plugins=http.expires,http.git,http.cors
 
@@ -9,13 +8,17 @@ RUN apk add --no-cache openssh-client git tar curl
 
 RUN curl --silent --show-error --fail --location \
       --header "Accept: application/tar+gzip, application/x-gzip, application/octet-stream" -o - \
-      "https://caddyserver.com/download/linux/amd64?plugins=${plugins}" \
+      "https://caddyserver.com/download/linux/arm6?plugins=${plugins}" \
     | tar --no-same-owner -C /usr/bin/ -xz caddy \
  && chmod 0755 /usr/bin/caddy \
  && /usr/bin/caddy -version
 
+# validate install
+RUN /usr/bin/caddy -version
+RUN /usr/bin/caddy -plugins
+
 EXPOSE 80 443 2015
-VOLUME /root/.caddy
+VOLUME /root/.caddy /srv
 WORKDIR /srv
 
 COPY Caddyfile /etc/Caddyfile
